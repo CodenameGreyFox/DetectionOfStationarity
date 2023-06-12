@@ -1,8 +1,4 @@
 library('move')
-## The parameter "data" is reserved for the data object passed on from the previous app
-
-## to display messages to the user in the log file of the App in MoveApps one can use the function from the logger.R file: 
-# logger.fatal(), logger.error(), logger.warn(), logger.info(), logger.debug(), logger.trace()
 
 rFunction = function(data, errorRange = 0.0001, hourLimit = 24) {
 
@@ -48,5 +44,6 @@ rFunction = function(data, errorRange = 0.0001, hourLimit = 24) {
 	
 	#Creates the data frame to be output
 	output <- data.frame(stopInd,stopTime,stopDurationH,row.names=NULL)
-	return(output)
+	write.csv(output,paste( Sys.getenv("APP_ARTIFACTS_DIR"),"StationaryAnimals.csv",sep=""),row.names = FALSE)
 }
+
