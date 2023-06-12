@@ -18,7 +18,7 @@ The individual is considered stationary if the difference in hours from its last
 MoveStack in Movebank format.
 
 ### Output data
-No output is produced to be used in subsequent apps.
+The original MoveStack in Movebank format. No changes from the input data.
 
 ### Artefacts
 * `StationaryAnimals.csv`: csv-file with Table of all individuals that were found to be stationary. It has three rows:
