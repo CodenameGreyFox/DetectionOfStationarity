@@ -1,9 +1,3 @@
-library('move')
-## The parameter "data" is reserved for the data object passed on from the previous app
-
-## to display messages to the user in the log file of the App in MoveApps one can use the function from the logger.R file: 
-# logger.fatal(), logger.error(), logger.warn(), logger.info(), logger.debug(), logger.trace()
-
 rFunction = function(data, errorRange = 0.0001, hourLimit = 24) {
 
 	#Initializes the variables
@@ -18,8 +12,7 @@ rFunction = function(data, errorRange = 0.0001, hourLimit = 24) {
 	for(ind in 1:length(namesIndiv(data))) {
 		
 		coordinates <- splitMoveStack[[ind]]@coords
-		timeStamps <- splitMoveStack[[ind]]@timestamps
-		dates <- as.POSIXct(timeStamps, format="%Y-%m-%d %H:%M:%S", tz="UTC")
+		dates <- splitMoveStack[[ind]]@timestamps
 		
 		#Compares all positions with the last known position
 		coordVsLast <- coordinates
@@ -51,4 +44,3 @@ rFunction = function(data, errorRange = 0.0001, hourLimit = 24) {
 	write.csv(output,paste( Sys.getenv("APP_ARTIFACTS_DIR"),"StationaryAnimals.csv",sep=""),row.names = FALSE)
 	return(data)
 }
-
