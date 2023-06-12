@@ -1,5 +1,7 @@
 # Detection Of Stationarity
 
+*This app has been created for the EMAC23 coding challenge*
+
 MoveApps
 
 Github repository: https://github.com/CodenameGreyFox/DetectionOfStationarity
