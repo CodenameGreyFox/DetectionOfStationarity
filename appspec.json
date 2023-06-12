@@ -1,19 +1,22 @@
 {
   "settings": [
     {
-      "id": "year",
-      "name": "The year.",
-      "description": "Insert description for the year setting setting",
-      "defaultValue": 2022,
+      "id": "errorRange",
+      "name": "Allowable GPS Error",
+      "description": "The maximum distance from two points (in degrees) that is not considered movement, due to GPS inaccuracy.",
+      "defaultValue": 0.0001,
+      "type": "DOUBLE"
+    },
+	{
+      "id": "hourLimit",
+      "name": "Hours Until Stationary",
+      "description": "The minimum hours needed for the individual to be immobile for it to be considered stationary.",
+      "defaultValue": 24,
       "type": "INTEGER"
     }
   ],
   "dependencies": {
     "R": [
-      {
-        "name": "lubridate",
-        "version": "1.7.10"
-      },
       {
         "name": "move"
       }
@@ -25,39 +28,25 @@
   },
   "language": "eng",
   "keywords": [
-    "example",
-    "template"
+    "stationary",
+    "detection"
   ],
   "people": [
     {
-      "firstName": "Charles",
+      "firstName": "Tomé",
       "middleInitials": null,
-      "lastName": "Darwin",
-      "email": "creator@example.com",
+      "lastName": "Neves",
+      "email": "tome_neves@hotmail.com",
       "roles": [
         "author",
         "creator"
       ],
-      "orcid": null,
+      "orcid": 0000-0003-3551-8072,
       "affiliation": null,
       "affiliationRor": null
     }
   ],
-  "funding": [
-    {
-      "name": "funder name",
-      "comment": "grant for App"
-    }
-  ],
-  "references": [
-    {
-      "type": "IsDescribedBy",
-      "note": "Darwin, C. 1900. The creation. Journal XY. 1-2",
-      "url": "https://anylink.xyz"
-    }
-  ],
   "documentation": {
-    "url": "https://github.com/yourAccount/my-app/README.md"
+    "url": "https://github.com/CodenameGreyFox/DetectionOfStationarity/README.md"
   }
 }
-
