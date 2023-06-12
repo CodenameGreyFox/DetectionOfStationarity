@@ -11,7 +11,7 @@ An app to detect when an individual has become stationary and is no longer movin
 
 ## Documentation
 This app detects when an individual has become stationary and is no longer moving by comparing its last known position with the last movement it made from that position.
-The individual is considered to have moved from position A to B if `abs(Xa-Xb)+ abs(Ya-Yb)` is bigger than the provided allowable GPS error (default 0.0001 degrees).
+The individual is considered to have moved from position A to B if `abs(Xa-Xb)+ abs(Ya-Yb)` is bigger than the provided allowable GPS error (default 0.0001).
 The individual is considered stationary if the difference in hours from its last known position and last known movement is bigger than the provided hour limit (default 24 hours).
 
 ### Input data
