@@ -29,7 +29,7 @@ The original MoveStack in Movebank format. No changes from the input data.
 
 ### Settings 
 
-* `Allowable GPS Error`: The maximum distance from two points that is not considered movement, due to GPS inaccuracy. Unit: `degrees`.
+* `Allowable GPS Error`: The maximum distance from two points that is not considered movement, due to GPS inaccuracy. Unit: `Same as the CRS of the data`.
 * `Hours Until Stationary`: The minimum time needed for the individual to be immobile for it to be considered stationary. Unit: `hours`.
 
 ### Most common errors
