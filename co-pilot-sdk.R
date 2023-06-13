@@ -25,6 +25,7 @@ args <- list() # if your function has no arguments, this line still needs to be 
 # Add all your arguments of your r-function here
 args[["errorRange"]] = 0.0001
 args[["hourLimit"]] = 24
+args[["filt"]] = 0
 
 ##############################
 ## source, setup & simulate ## leave as is!
