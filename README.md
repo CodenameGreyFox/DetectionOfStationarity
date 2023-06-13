@@ -22,7 +22,7 @@ Depending on the filter setting it can output:
 * `Filter = 0` The original MoveStack in Movebank format. No changes from the input data.
 * `Filter = 1` Only the individuals that were found to be stationary in a MoveStack in Movebank format.
 * `Filter = -1` Only the individuals that were found to be non-stationary in a MoveStack in Movebank format. 
-*
+
 ### Artefacts
 * `StationaryAnimals.csv`: csv-file with Table of all individuals that were found to be stationary. It has three rows:
 
