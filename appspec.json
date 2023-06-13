@@ -13,6 +13,13 @@
       "description": "The minimum hours needed for the individual to be immobile for it to be considered stationary.",
       "defaultValue": 24,
       "type": "INTEGER"
+    },
+	{
+      "id": "filt",
+      "name": "Filter Results?",
+      "description": "0 = Serves as a pass-through; 1 = Only returns stationary individuals; -1 = Only returns non-stationary individuals.",
+      "defaultValue": 0,
+      "type": "INTEGER"
     }
   ],
   "dependencies": {
@@ -41,7 +48,7 @@
         "author",
         "creator"
       ],
-      "orcid": 0000-0003-3551-8072,
+      "orcid":"0000-0003-3551-8072",
       "affiliation": null,
       "affiliationRor": null
     }
