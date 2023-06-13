@@ -1,18 +1,20 @@
-rFunction = function(data, errorRange = 0.0001, hourLimit = 24) {
+library('move')
 
-	#Initializes the variables
-	stopTime <- c()
-	stopInd <- c()	
-	stopDurationH <- c()
+rFunction = function(data, errorRange = 0.0001, hourLimit = 24, filt = 0) {
 	
 	#Splits the stack to account for various individuals
-	splitMoveStack <- move::split(data)
+	splitStack <- move::split(data)
 	
-	#Does the calculations for each individual separately
-	for(ind in 1:length(namesIndiv(data))) {
+	#Helper function for the method
+	helperFunction = function(splitMoveStack) {
+	
+		#Initializes the variables
+		stopTime <- c()
+		stopInd <- c()	
+		stopDurationH <- c()
 		
-		coordinates <- splitMoveStack[[ind]]@coords
-		dates <- splitMoveStack[[ind]]@timestamps
+		coordinates <- splitMoveStack@coords
+		dates <- splitMoveStack@timestamps
 		
 		#Compares all positions with the last known position
 		coordVsLast <- coordinates
@@ -34,13 +36,36 @@ rFunction = function(data, errorRange = 0.0001, hourLimit = 24) {
 		#If more time than the hourLimit has elapsed since the tag stopped moving, adds it to the list
 		if(timeToLastMov > hourLimit) {
 			stopTime <- append(stopTime,dates[lastMov+1])
-			stopInd <- append(stopInd,namesIndiv(data)[ind])
+			stopInd <- append(stopInd,namesIndiv(splitMoveStack))
 			stopDurationH <- append(stopDurationH,timeToLastMov)
 		}
-	}		
+		
+		return(data.frame(stopInd,stopTime,stopDurationH,row.names=NULL))
+	}
 	
-	#Creates the data frame to be output
-	output <- data.frame(stopInd,stopTime,stopDurationH,row.names=NULL)
+	output <- lapply(splitStack,helperFunction)	
+	
+	#Gathers the results in a data frame
+	output <- do.call("rbind", output)
+	
+	#Writes the csv
 	write.csv(output,paste( Sys.getenv("APP_ARTIFACTS_DIR"),"StationaryAnimals.csv",sep=""),row.names = FALSE)
-	return(data)
+	
+	#If filter is above 0, it filters only the stationary individuals
+	if(filt > 0) {
+		if(length(output$stopInd) > 0 ) {
+			return(moveStack(splitStack[output$stopInd], forceTz="UTC"))
+		} else {
+			return(NULL)
+		}
+	} else if (filt == 0) { #If 0, works as a pass-through
+		return(data)
+	} else {#If it is below 0, it filters only the non-stationary individuals
+		splitStack[output$stopInd] <- NULL
+		if (length(splitStack) >0) {
+			return(moveStack(splitStack, forceTz="UTC"))
+		} else {
+			return(NULL)
+		}
+	}
 }
