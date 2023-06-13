@@ -41,7 +41,8 @@ None at present.
 
 ### Null or error handling
 If no individuals are found to be stationary, it returns an empty .csv file.
-If using filter, and no individuals match the criteria, returns NULL instead of a MoveStack.
+
+If filter is set to -1 or 1 and no individuals match the criteria, returns NULL instead of a MoveStack.
 
 * **Setting `Allowable GPS Error`:** If not given it defaults to 0.0001.
 * **Setting `Hours Until Stationary`:** If not given it defaults to 24.
