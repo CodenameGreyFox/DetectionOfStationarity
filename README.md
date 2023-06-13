@@ -25,7 +25,7 @@ The original MoveStack in Movebank format. No changes from the input data.
 
 		* stopInd - Identification of the stationary individual.
 		* stopTime - Time from which the individual was considered stationary. (yyyy-MM-dd H:m:s)
-		* stopDurationH - Number of hours the individual has been statinary.
+		* stopDurationH - Number of hours the individual has been stationary.
 
 ### Settings 
 
