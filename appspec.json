@@ -15,12 +15,25 @@
       "type": "INTEGER"
     },
 	{
-      "id": "filt",
-      "name": "Filter Results?",
-      "description": "0 = Serves as a pass-through; 1 = Only returns stationary individuals; -1 = Only returns non-stationary individuals.",
-      "defaultValue": 0,
-      "type": "INTEGER"
+	  "id": "filt",
+	  "name": "Filter Results?",
+	  "description": "Select what the program outputs.",
+	  "type": "RADIOBUTTONS",
+	  "defaultValue": 0,
+	  "options": [{
+		  "value": 0,
+		  "displayText": "Serves as a pass-through"
+    },
+    {
+      "value": 1,
+      "displayText": "Only returns stationary individuals"
+    }, 
+	{
+      "value": -1,
+      "displayText": "Only returns non-stationary individuals"
     }
+  ]
+}
   ],
   "dependencies": {
     "R": [
