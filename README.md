@@ -19,9 +19,9 @@ MoveStack in Movebank format.
 
 ### Output data
 Depending on the filter setting it can output:
-* `Filter = 0` The original MoveStack in Movebank format. No changes from the input data.
-* `Filter = 1` Only the individuals that were found to be stationary in a MoveStack in Movebank format.
-* `Filter = -1` Only the individuals that were found to be non-stationary in a MoveStack in Movebank format. 
+* Serves as a pass-through - The original MoveStack in Movebank format. No changes from the input data.
+* Only returns stationary individuals - Only the individuals that were found to be stationary in a MoveStack in Movebank format.
+* Only returns non-stationary individuals - Only the individuals that were found to be non-stationary in a MoveStack in Movebank format. 
 
 ### Artefacts
 * `StationaryAnimals.csv`: csv-file with Table of all individuals that were found to be stationary. It has three rows:
@@ -34,7 +34,7 @@ Depending on the filter setting it can output:
 
 * `Allowable GPS Error`: The maximum distance from two points that is not considered movement, due to GPS inaccuracy. Unit: `Same as the CRS of the data`.
 * `Hours Until Stationary`: The minimum time needed for the individual to be immobile for it to be considered stationary. Unit: `hours`.
-* `Filter Results?`: 0 = Serves as a pass-through; 1 = Only returns stationary individuals; -1 = Only returns non-stationary individuals.
+* `Filter Results?`: Serves as a pass-through; Only returns stationary individuals; Only returns non-stationary individuals.
 
 ### Most common errors
 None at present.
@@ -42,9 +42,9 @@ None at present.
 ### Null or error handling
 If no individuals are found to be stationary, it returns an empty .csv file.
 
-If filter is set to -1 or 1 and no individuals match the criteria, returns NULL instead of a MoveStack.
+If filter is not set to pass-through, no individuals match the criteria, returns NULL instead of a MoveStack.
 
 * **Setting `Allowable GPS Error`:** If not given it defaults to 0.0001.
 * **Setting `Hours Until Stationary`:** If not given it defaults to 24.
-* **Setting `Filter Results?`:** If not given it defaults to 0 (pass-through).
+* **Setting `Filter Results?`:** If not given it defaults to pass-through.
 
