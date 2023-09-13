@@ -11,7 +11,9 @@ An app to detect when an individual has become stationary and is no longer movin
 
 ## Documentation
 This app detects when an individual has become permanently stationary and is no longer moving by comparing its Last Known Position (LKP) with the Last Known Movement (LKM) it made from that position.
+
 The individual is considered stationary if the difference in hours from its LKP and its LKM is bigger than the provided hour limit (default 24 hours).
+
 The LKM of an individual is defined as the last movement where the individual first became at a distance smaller than the provided allowable GPS error from its LKP (default 10 meters).
 
 ### Input data
