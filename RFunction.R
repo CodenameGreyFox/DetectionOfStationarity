@@ -1,11 +1,26 @@
 library('move')
 
-rFunction = function(data, errorRange = 0.0001, hourLimit = 24, filt = 0) {
+#Depending on the filter setting it can output:
+# `filt = 0` The original MoveStack in Movebank format. No changes from the input data.
+# `filt = 1` Only the individuals that were found to be stationary in a MoveStack in Movebank format.
+# `filt = -1` Only the individuals that were found to be non-stationary in a MoveStack in Movebank format. 
+#
+#errorRange is in meters
+
+rFunction = function(data, errorRange = 10, hourLimit = 24, filt = 0) {
 	
 	#Splits the stack to account for various individuals
 	splitStack <- move::split(data)
 	
-	#Helper function for the method
+	#Helper function to calculate distance between two coordinates
+	haversine = function(lon1,lat1,lon2,lat2) {
+		a = sin((lat1-lat2)* (pi/180)/2)^2 + cos(lat1* (pi/180))*cos(lat2* (pi/180))*sin((lon1-lon2)* (pi/180)/2)^2
+		c = 2*atan2(sqrt(a), sqrt(1-a))
+		d = 6371000 * c #6371000m is the radius of earth			
+		return( d )
+	}
+	
+	#Helper function to analyse the different stacks separately
 	helperFunction = function(splitMoveStack) {
 	
 		#Initializes the variables
@@ -15,14 +30,21 @@ rFunction = function(data, errorRange = 0.0001, hourLimit = 24, filt = 0) {
 		
 		coordinates <- splitMoveStack@coords
 		dates <- splitMoveStack@timestamps
-		
-		#Compares all positions with the last known position
-		coordVsLast <- coordinates
-		coordVsLast[,1] <- coordinates[,1] - coordinates[nrow(coordinates),1]
-		coordVsLast[,2] <- coordinates[,2] - coordinates[nrow(coordinates),2]
-		
-		#Creates array with TRUE when the distance from the last known location is above the error range
-		coordVsLastOverError <- (abs(coordVsLast[,1]) + abs(coordVsLast[,2])) > errorRange
+		crs <- splitMoveStack@proj4string
+
+		if (grepl( "+proj=longlat ", crs, fixed = TRUE)) {#If the projection is in degrees
+
+			#Creates array with TRUE when the distance from the last known location is above the error range, converting the distances in degrees to meters
+			coordVsLastOverError <- haversine( coordinates[,1], coordinates[,2], coordinates[nrow(coordinates),1],coordinates[nrow(coordinates),2])  > errorRange	
+			
+		} else { #Assume it is in meters
+				coordVsLast <- coordinates
+				coordVsLast[,1] <- coordinates[,1] - coordinates[nrow(coordinates),1]
+				coordVsLast[,2] <- coordinates[,2] - coordinates[nrow(coordinates),2]
+				
+				#Creates array with TRUE when the distance from the last known location is above the error range
+				coordVsLastOverError <- (abs(coordVsLast[,1]) + abs(coordVsLast[,2])) > errorRange				
+		}
 
 		#Gets position of latest position considered as movement
 		if(length(which(coordVsLastOverError)) != 0) {		#If it moved at least once
@@ -49,13 +71,14 @@ rFunction = function(data, errorRange = 0.0001, hourLimit = 24, filt = 0) {
 	output <- do.call("rbind", output)
 	
 	#Writes the csv
-	write.csv(output,paste( Sys.getenv("APP_ARTIFACTS_DIR"),"StationaryAnimals.csv",sep=""),row.names = FALSE)
+	write.csv(output,paste(Sys.getenv("APP_ARTIFACTS_DIR"),"StationaryAnimals.csv",sep=""),row.names = FALSE)
 	
 	#If filter is above 0, it filters only the stationary individuals
 	if(filt > 0) {
 		if(length(output$stopInd) > 0 ) {
 			return(moveStack(splitStack[output$stopInd], forceTz="UTC"))
 		} else {
+			logger.info("No stationary individuals detected, returning NULL.")
 			return(NULL)
 		}
 	} else if (filt == 0) { #If 0, works as a pass-through
@@ -65,6 +88,7 @@ rFunction = function(data, errorRange = 0.0001, hourLimit = 24, filt = 0) {
 		if (length(splitStack) >0) {
 			return(moveStack(splitStack, forceTz="UTC"))
 		} else {
+			logger.info("No non-stationary individuals detected, returning NULL.")
 			return(NULL)
 		}
 	}
