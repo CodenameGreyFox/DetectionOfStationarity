@@ -3,8 +3,8 @@
     {
       "id": "errorRange",
       "name": "Allowable GPS Error",
-      "description": "The maximum distance from two points (in degrees) that is not considered movement, due to GPS inaccuracy.",
-      "defaultValue": 0.0001,
+      "description": "The maximum distance from two points (in meters) that is not considered movement, due to GPS inaccuracy.",
+      "defaultValue": 10,
       "type": "DOUBLE"
     },
 	{
