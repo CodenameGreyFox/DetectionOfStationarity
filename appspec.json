@@ -41,11 +41,7 @@
         "name":  "move2",
 	
       },
-	     {
-        "name":  "parallel",
-	
-      },
-	     {
+	 {
         "name":  "units",
 	
       }
