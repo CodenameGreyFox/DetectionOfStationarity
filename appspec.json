@@ -44,7 +44,12 @@
 	 {
         "name":  "units",
 	
+      },
+	 {
+        "name":  "sf",
+	
       }
+	    
     ]
   },
   "createsArtifacts": true,
