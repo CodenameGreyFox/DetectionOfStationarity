@@ -1,5 +1,4 @@
 library('move2')
-library('parallel')
 library('units')
 
 #Depending on the filter setting it can output:
@@ -47,7 +46,7 @@ rFunction = function(data, errorRange = 10, hourLimit = 24, filt = 0) {
 		return(data.frame(stopInd,stopTime,stopDurationH,row.names=NULL))
 	}
 	
-	output <- mclapply(splitStack,helperFunction)	
+	output <- lapply(splitStack,helperFunction)	
 	
 	#Gathers the results in a data frame
 	output <- do.call("rbind", output)
