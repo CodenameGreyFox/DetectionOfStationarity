@@ -1,5 +1,6 @@
 library('move2')
 library('units')
+library('sf')
 
 #Depending on the filter setting it can output:
 # `filt = 0` The original MoveStack in Movebank format. No changes from the input data.
