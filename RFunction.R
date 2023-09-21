@@ -1,4 +1,4 @@
-library('move')
+library('move2')
 library('parallel')
 library('units')
 
