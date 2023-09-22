@@ -58,7 +58,9 @@ rFunction = function(data, errorRange = 10, hourLimit = 24, filt = 0) {
 	#If filter is above 0, it filters only the stationary individuals
 	if(filt > 0) {
 		if(length(output$stopInd) > 0 ) {
-			return(mt_stack(splitStack[output$stopInd]))
+			finalStack <- mt_stack(splitStack[output$stopInd])
+			mt_track_id(finalStack) <- factor(mt_track_id(finalStack),unique(mt_track_id(finalStack)))
+			return(finalStack)
 		} else {
 			logger.info("No stationary individuals detected, returning NULL.")
 			return(NULL)
@@ -68,7 +70,9 @@ rFunction = function(data, errorRange = 10, hourLimit = 24, filt = 0) {
 	} else {#If it is below 0, it filters only the non-stationary individuals
 		splitStack[output$stopInd] <- NULL
 		if (length(splitStack) >0) {
-			return(mt_stack(splitStack))
+			finalStack <- mt_stack(splitStack)
+			mt_track_id(finalStack) <- factor(mt_track_id(finalStack),unique(mt_track_id(finalStack)))
+			return(finalStack)
 		} else {
 			logger.info("No non-stationary individuals detected, returning NULL.")
 			return(NULL)
