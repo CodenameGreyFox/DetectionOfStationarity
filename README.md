@@ -1,4 +1,4 @@
-# Detection Of Stationarity
+# Detection Of Permanent Stationarity
 
 *This app has been created for the EMAC23 coding challenge*
 
