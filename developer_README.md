@@ -1,5 +1,7 @@
 # MoveApps R Software Development Kit (SDK)
 
+#### ***NOTE*: this SDK only supports code written for input data of class `move2` and not `moveStack`, as all input data of class `moveStack` will be converted to class `move2`. For all other input/output types, this SDK works as usual. Please contact us under support@moveapps.org if you have any questions.**
+
 This documentation provides a short introduction to the [MoveApps](https://www.moveapps.org) **R SDK**.
 
 As a first step, and before your read this, you should have used this GitHub template to create a copy of it in your personal space and named the repository as your App will be named in MoveApps.
@@ -216,4 +218,4 @@ You can [activate `renv` with `renv::activate()`](https://rstudio.github.io/renv
 
 ## Synchronisation of your fork with this template
 
-This template includes a _GitHub action_ to keep your fork synchronized with the original template (aka the MoveApps R SDK). The synchronization action creates a _GitHub pull request_ in your fork from time to time in case the orginial template has changed.
+This template includes a _GitHub action_ to keep your fork synchronized with the original template (aka the MoveApps R SDK). The synchronization action creates a _GitHub pull request_ in your fork from time to time in case the original template has changed.
